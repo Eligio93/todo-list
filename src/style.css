@@ -1,0 +1,11 @@
+:root{
+    --color1:#F9B597;
+    --color2:#F1C598;
+    --color3:#FDF0BB;
+    --color4:#B5E1AD;
+    --color5:#B9F2E0;
+}
+
+body{
+    background-color: black;
+}
