@@ -33,6 +33,7 @@ header{
     
 }
 #sidebar{
+    position:relative;
     width:300px;
     display:flex;
     flex-direction: column;
@@ -57,4 +58,24 @@ header{
     align-items: center;
     padding-left:10px;
     gap:10px;
+}
+#create-todo{
+   position:absolute;
+   background-image: url(/src/img/add-icon.svg);
+   background-repeat: no-repeat;
+   background-size: contain;
+   height:50px;
+   width:50px;
+   bottom:5%;
+   right:5%;
+   background-color: var(--color4);
+   border:1px solid white;
+   border-radius:10px;
+}
+#create-todo:hover{
+    background-color: #6aa360;
+    cursor: pointer;
+}
+#create-todo:active{
+    background-color: #B5E1AD;
 }
