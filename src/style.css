@@ -44,13 +44,17 @@ header{
     background-color: var(--color6);
     border-radius:30px;
     height:100%;
-    padding:10px;
-    
+    padding:10px;   
 }
+
 .sb-element{
     width:100%;
     height:30px;
     background-color:white;
     border-radius: 10px;
     margin-top:15px;
+    display:flex;
+    align-items: center;
+    padding-left:10px;
+    gap:10px;
 }
