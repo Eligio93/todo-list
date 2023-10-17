@@ -33,14 +33,24 @@ header{
     
 }
 #sidebar{
-    width:20%; 
+    width:300px;
+    display:flex;
+    flex-direction: column;
 }
 #content{
-    width:80%;
+   flex:1;
 }
 #sidebar,#content{
     background-color: var(--color6);
     border-radius:30px;
     height:100%;
+    padding:10px;
     
+}
+.sb-element{
+    width:100%;
+    height:30px;
+    background-color:white;
+    border-radius: 10px;
+    margin-top:15px;
 }
