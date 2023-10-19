@@ -1,7 +1,7 @@
 import todayIcon from "./img/icon-today.svg";
 import weekIcon from "./img/icon-week.svg";
 import importantIcon from "./img/icon-important.svg";
-//Need projects to be imported to create the sideELement in case 
+//Need projects to be imported to create the sideELement project in case 
 let sideELements=[{
     title:"Today",
     imgSrc:todayIcon
@@ -17,6 +17,10 @@ let sideELements=[{
 
 let createSideBar=function(){
     let sideBar=document.getElementById("sidebar");
+    let summary=document.createElement("h2");
+    summary.textContent="Summary";
+    summary.id="summary";
+    sideBar.appendChild(summary);
     for(let i=0;i<sideELements.length;i++){
         //creates sb Element div
         let sbElement=document.createElement("div");
@@ -31,6 +35,10 @@ let createSideBar=function(){
         sideBar.appendChild(sbElement);
 
     }
+    let createBtn=document.createElement("button");
+    createBtn.id="create-todo";
+    sideBar.appendChild(createBtn);
+
 
 }
 export default createSideBar;
