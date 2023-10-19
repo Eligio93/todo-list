@@ -1,10 +1,10 @@
 import {storageManager} from "./localStorage";
 let projects=storageManager.initStorage();
-
+let content = document.getElementById("content");
 
 const taskManager = (function () {
 
-    let content = document.getElementById("content");
+   
     let tasks=[];
     //ALl about creating a task
     let createTask = function () {  
@@ -75,4 +75,14 @@ const taskManager = (function () {
 
 })();
 
+const projectManager=(function(){
+    class Project {
+        constructor(projectName, date, priority) {
+            this.projectName = projectName;
+            this.date = date;  
+            this.priority = priority;
+        }
+    }
+
+})();
 export {taskManager};
