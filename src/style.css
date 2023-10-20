@@ -40,12 +40,20 @@ header{
 }
 #content{
    flex:1;
+   display:flex;
+   flex-direction: column;
 }
 #sidebar,#content{
     background-color: var(--color6);
     border-radius:30px;
     height:100%;
     padding:10px;   
+}
+#summary{
+    text-align: center;
+    padding:0;
+    margin-top:20px;
+    margin-bottom: 0;
 }
 
 .sb-element{
@@ -68,14 +76,49 @@ header{
    width:50px;
    bottom:5%;
    right:5%;
-   background-color: var(--color4);
+   background-color: var(--color1);
    border:1px solid white;
    border-radius:10px;
 }
-#create-todo:hover{
-    background-color: #6aa360;
+#create-todo:hover, #create-task-btn:hover{
+    background-color:#fa8c5d;
     cursor: pointer;
 }
-#create-todo:active{
+#create-todo:active, #create-task-btn:active{
     background-color: #B5E1AD;
+}
+#task-form,#project-form{
+    display:flex;
+    flex-direction: column;
+    width:200px;
+    height:fit-content;
+    background-color: var(--color3);
+    padding:10px;
+    align-self: center;
+    margin-top:50px;
+    border-radius:10px;
+    border:2px solid var(--color1);
+    
+   
+}
+#task-description{
+    height:100px;
+    resize:none;
+    
+}
+#task-form label,#project-form label{
+    margin-top:10px;
+}
+#create-task-btn, #create-project-btn{
+    margin-top:10px;
+    height:30px;
+    background-color:#fa8c5d;
+    text-transform: uppercase;
+    font-weight: bold;
+    color:white;
+    border:white;
+}
+#new-task-btn,#new-project-btn{
+   margin-bottom:10px;
+
 }
