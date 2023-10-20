@@ -1,8 +1,12 @@
 import todayIcon from "./img/icon-today.svg";
 import weekIcon from "./img/icon-week.svg";
 import importantIcon from "./img/icon-important.svg";
+import homeIcon from "./img/home-icon.svg";
 //Need projects to be imported to create the sideELement project in case 
 let sideELements=[{
+    title:"Home",
+    imgSrc:homeIcon
+},{
     title:"Today",
     imgSrc:todayIcon
 },
