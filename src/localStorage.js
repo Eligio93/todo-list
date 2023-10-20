@@ -12,7 +12,8 @@ let storageManager = (function () {
                 date: "",
                 priority: "",
                 tasks: []
-            }]
+            }];
+            
         } else {
             return getProjects;
         }
@@ -21,8 +22,7 @@ let storageManager = (function () {
 
     return {
         saveProject,
-        downloadProjects,
-        // initStorage
+        downloadProjects
     }
 
 })();
