@@ -29,6 +29,7 @@ let createSideBar=function(){
         //creates sb Element div
         let sbElement=document.createElement("div");
         sbElement.className="sb-element";
+        sbElement.id=sideELements[i].title.toLowerCase()+"-btn";
         //get the icon img
         let icon=document.createElement("img");
         icon.src=sideELements[i].imgSrc;
