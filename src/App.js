@@ -1,4 +1,5 @@
 import { storageManager } from "./localStorage";
+import { displayController } from "./UI";
 let projects = storageManager.downloadProjects();
 
 let content = document.getElementById("content");
@@ -45,11 +46,11 @@ const taskManager = (function () {
             storageManager.saveProject(projects);
 
         }
-
-        content.innerHTML = "";
+        content.innerHTML="";
+        displayController.homeTasks();
     }
 
-    let createTaskForm = function () {
+    let createTaskForm = function () { 
         content.innerHTML = `<form action="" method="" id="task-form">
         <label for="task-title">Title:</label>
         <input type="text" id="task-title" name="task-title">
@@ -66,7 +67,8 @@ const taskManager = (function () {
             <option value="High">High</option>
         </select>
         <button type="button" id="create-task-btn">Create Task</button>
-    </form>`;
+    </form>`
+   
         //give the option to choose in whic project the task will be putted
         if (projects.length == 1) {
             document.getElementById("checkbox").style.display = "none";
@@ -89,7 +91,6 @@ const taskManager = (function () {
 
             })
         }
-        content.innerHTML = "";
     }
 
     return {
@@ -133,6 +134,7 @@ const projectManager = (function () {
         projects = storageManager.downloadProjects();
         projects.push(newProject);
         storageManager.saveProject(projects);
+        content.innerHTML="";//porta alla scehrmata dei progetti
     }
 
     return {
@@ -140,4 +142,6 @@ const projectManager = (function () {
         createProject
     }
 })();
-export { taskManager, projectManager };
+
+
+export { taskManager, projectManager};
