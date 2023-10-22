@@ -159,6 +159,9 @@ header{
 .arrow-down-icon:hover,#arrow-up-icon:hover{
     cursor:pointer;
 }
+.delete-btn:hover,.edit-btn:hover,.complete-btn:hover{
+    cursor:pointer;
+}
 .task-description{
     height:fit-content;
     padding:5px 5px 5px 20px;
