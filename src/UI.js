@@ -3,14 +3,18 @@ let content=document.getElementById("content");
 
 
 let displayController=(function(){
+    // home Tasks displays all tasks in every project
     let homeTasks=function(){
+        content.innerHTML="";
         let projects=storageManager.downloadProjects();
         let tasks=[];
+        //put all project's tasks in the tasks array
         for(let i=0;i<projects.length;i++){
             tasks.push(projects[i].tasks);
             
         }
         let allTasks=tasks.flat();
+        //display each task in a separate div
         allTasks.forEach((task,index)=>{
             let taskDiv=document.createElement("div");
             taskDiv.className="task-div";
@@ -62,6 +66,12 @@ let displayController=(function(){
             taskDiv.appendChild(showPriority);
             taskDiv.appendChild(modifyBtns);
             content.appendChild(taskDiv);
+            let taskDescriptionDiv=document.createElement("div");
+            taskDescriptionDiv.className="task-description";
+            let taskDescription=document.createElement("p");
+            taskDescription.textContent=task.description;
+            taskDescriptionDiv.appendChild(taskDescription);
+            content.appendChild(taskDescriptionDiv);
 
 
         })
