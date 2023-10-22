@@ -76,17 +76,23 @@ const taskManager = (function () {
         } else {
             let checkbox = document.getElementById("checkbox");
             checkbox.addEventListener("change", function () {
-                if (checkbox.checked) {
+                if (checkbox.checked) {   
                     let selectProject = document.createElement("select");
-                    projects.forEach(obj => {
+                    selectProject.id = "select-project-menu";                 
+                    for(let i=0;i<projects.length;i++){
+                        if(projects[i].projectName !== "default"){
+                            let projectOption = document.createElement("option");
+                            projectOption.setAttribute("value", projects[i].projectName);
+                            projectOption.textContent = projects[i].projectName;
+                            selectProject.appendChild(projectOption);
 
-                        selectProject.id = "select-project-menu";
-                        let projectOption = document.createElement("option");
-                        projectOption.setAttribute("value", obj.projectName);
-                        projectOption.textContent = obj.projectName;
-                        selectProject.appendChild(projectOption);
-                    })
+                        }
+
+                    }
                     checkbox.insertAdjacentElement("afterend", selectProject);
+                }else{
+                   document.getElementById("select-project-menu").remove();
+                   
                 }
 
             })
