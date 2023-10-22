@@ -51,22 +51,22 @@ const taskManager = (function () {
     }
 
     let createTaskForm = function () { 
-        content.innerHTML = `<form action="" method="" id="task-form">
+        content.innerHTML = `<form id="task-form">
         <label for="task-title">Title:</label>
-        <input type="text" id="task-title" name="task-title">
+        <input type="text" id="task-title" name="task-title" required>
         <label for="task-date">Due date:</label>
-        <input type="date" id="task-date" name="task-date">
+        <input type="date" id="task-date" name="task-date" required>
         <label for="task-description">Description:</label>
-        <textarea name="task-description" id="task-description"></textarea>
+        <textarea name="task-description" id="task-description" required></textarea>
         <label for="checkbox">Add to a project?</label>
         <input type="checkbox" name="checkbox" id="checkbox">
         <label for="task-priority">Priority:</label>
-        <select name="task-priority" id="task-priority">
+        <select name="task-priority" id="task-priority" required>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
         </select>
-        <button type="button" id="create-task-btn">Create Task</button>
+        <button type="submit" id="create-task-btn">Create Task</button>
     </form>`
    
         //give the option to choose in whic project the task will be putted
