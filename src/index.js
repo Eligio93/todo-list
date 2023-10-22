@@ -1,10 +1,12 @@
 import "./style.css";
 import createSideBar from "./createSideBar";
 import {taskManager,projectManager} from "./App";
+import {displayController} from "./UI";
 let content=document.getElementById("content");
 
 
 let addTask=function(){
+    
     taskManager.createTaskForm();
     let createTaskBtn=document.getElementById("create-task-btn");
     createTaskBtn.addEventListener("click",function(){
@@ -36,3 +38,6 @@ createTodo.addEventListener("click",function(){
     newProjectBtn.addEventListener("click",addProject)
 
 });
+
+let homeBtn=document.getElementById("home-btn");
+homeBtn.addEventListener("click",displayController.homeTasks);
