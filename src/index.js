@@ -6,13 +6,18 @@ let content=document.getElementById("content");
 
 
 let addTask=function(){
-    
     taskManager.createTaskForm();
     let createTaskBtn=document.getElementById("create-task-btn");
-    createTaskBtn.addEventListener("click",function(){
+    let taskForm=document.getElementById("task-form");
+    taskForm.addEventListener("submit",function(event){
+        //prevent the submit event but checks the inout fields
+        event.preventDefault()
+        //work as a click event
+        createTaskBtn.click();
         taskManager.createTask();
     });  
 }
+
 let addProject=function(){
     projectManager.createProjectForm();
     let createProjectBtn=document.getElementById("create-project-btn");
@@ -40,4 +45,6 @@ createTodo.addEventListener("click",function(){
 });
 
 let homeBtn=document.getElementById("home-btn");
-homeBtn.addEventListener("click",displayController.homeTasks);
+homeBtn.addEventListener("click",function(){
+    displayController.homeTasks();
+});
