@@ -42,6 +42,7 @@ header{
    flex:1;
    display:flex;
    flex-direction: column;
+   padding:20px;
 }
 #sidebar,#content{
     background-color: var(--color6);
@@ -121,4 +122,49 @@ header{
 #new-task-btn,#new-project-btn{
    margin-bottom:10px;
 
+}
+
+.task-div{
+    display:flex;
+    align-items: center;
+    height: 50px;
+    width:100%;
+    background-color: var(--color5);
+    border-radius:10px;
+    margin-top:10px;
+    padding:20px;
+    
+}
+
+.show-title,.show-date,.show-priority{
+    flex:1;
+}
+.show-priority{
+    display:flex;
+    gap:5px;
+}
+.priority-color{
+    border-radius: 100%;
+    background-color: red;
+    height:15px;
+    width:15px;
+}
+.modify-btns{
+    display:flex;
+    gap:10px; 
+}
+.arrow-down-icon,.arrow-up-icon{
+    margin-right:5px;
+}
+.arrow-down-icon:hover,#arrow-up-icon:hover{
+    cursor:pointer;
+}
+.task-description{
+    height:fit-content;
+    padding:5px 5px 5px 20px;
+    margin:0;
+}
+.task-description p{
+    margin:0;
+    padding:0;
 }
