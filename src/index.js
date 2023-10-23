@@ -47,4 +47,15 @@ createTodo.addEventListener("click",function(){
 let homeBtn=document.getElementById("home-btn");
 homeBtn.addEventListener("click",function(){
     displayController.homeTasks();
+    let descriptionBtns=document.querySelectorAll(".arrow-down-icon");
+    descriptionBtns.forEach((btn,index)=>{
+        btn.addEventListener("click",function(){
+            let description=document.querySelector(`[data-description="${index}"]`);
+            if(description.style.display=="none"){
+                description.style.display="block";
+            }else if(description.style.display=="block"){
+                description.style.display="none";
+            }
+        })
+    })
 });
