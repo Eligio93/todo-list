@@ -18,6 +18,7 @@ let displayController=(function(){
         allTasks.forEach((task,index)=>{
             let taskDiv=document.createElement("div");
             taskDiv.className="task-div";
+            taskDiv.setAttribute("data-task",index)
             let arrowDown=document.createElement("img");
             arrowDown.className="arrow-down-icon";
             arrowDown.src="/src/img/arrow-down-icon.svg";
@@ -68,9 +69,11 @@ let displayController=(function(){
             content.appendChild(taskDiv);
             let taskDescriptionDiv=document.createElement("div");
             taskDescriptionDiv.className="task-description";
+            taskDescriptionDiv.setAttribute("data-description",index);
             let taskDescription=document.createElement("p");
             taskDescription.textContent=task.description;
             taskDescriptionDiv.appendChild(taskDescription);
+            taskDescriptionDiv.style.display="none";
             content.appendChild(taskDescriptionDiv);
 
 
