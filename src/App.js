@@ -3,9 +3,9 @@ import { displayController } from "./UI";
 let projects = storageManager.downloadProjects();
 
 let content = document.getElementById("content");
-
-const taskManager = (function () {
     //all about creating a task
+const taskManager = (function () {
+    
     let createTask = function () {
 
         //class to create a task object
@@ -66,7 +66,7 @@ const taskManager = (function () {
             <option value="Medium">Medium</option>
             <option value="High">High</option>
         </select>
-        <button type="submit" id="create-task-btn">Create Task</button>
+        <button type="button" id="create-task-btn">Create Task</button>
     </form>`
    
         //give the option to choose in whic project the task will be putted
@@ -119,11 +119,11 @@ const projectManager = (function () {
     let createProjectForm = function () {
         content.innerHTML = `<form action="" method="" id="project-form">
         <label for="project-name">Project Name:</label>
-        <input type="text" id="project-name" name="project-name">
+        <input type="text" id="project-name" name="project-name" required>
         <label for="project-date">Due date:</label>
-        <input type="date" id="project-date" name="project-date">
+        <input type="date" id="project-date" name="project-date" required>
         <label for="project-priority">Priority:</label>
-        <select name="project-priority" id="project-priority">
+        <select name="project-priority" id="project-priority" required>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
