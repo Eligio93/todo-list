@@ -1,21 +1,12 @@
 import { storageManager } from "./localStorage";
+import { format, isThisWeek} from 'date-fns'
 let content=document.getElementById("content");
 
 
 let displayController=(function(){
     // home Tasks displays all tasks in every project
-    let homeTasks=function(){
-        content.innerHTML="";
-        let projects=storageManager.downloadProjects();
-        let tasks=[];
-        //put all project's tasks in the tasks array
-        for(let i=0;i<projects.length;i++){
-            tasks.push(projects[i].tasks);
-            
-        }
-        let allTasks=tasks.flat();
-        //display each task in a separate div
-        allTasks.forEach((task,index)=>{
+    let renderTasks=function(array){
+        array.forEach((task,index)=>{
             let taskDiv=document.createElement("div");
             taskDiv.className="task-div";
             taskDiv.setAttribute("data-task",index)
@@ -55,12 +46,12 @@ let displayController=(function(){
             editBtn.setAttribute("data-task",index)
             editBtn.src="/src/img/edit-icon.svg";
             let completeBtn=document.createElement("input");
-            completeBtn.className="complete-btn";
-            completeBtn.setAttribute("data-task",index)
-            completeBtn.type="checkbox";
+            // completeBtn.className="complete-btn";
+            // completeBtn.setAttribute("data-task",index)
+            // completeBtn.type="checkbox";
             modifyBtns.appendChild(deleteBtn);
             modifyBtns.appendChild(editBtn);
-            modifyBtns.appendChild(completeBtn);
+            // modifyBtns.appendChild(completeBtn);
             taskDiv.appendChild(arrowDown);
             taskDiv.appendChild(showTitle);
             taskDiv.appendChild(showDate);
@@ -75,13 +66,82 @@ let displayController=(function(){
             taskDescriptionDiv.appendChild(taskDescription);
             taskDescriptionDiv.style.display="none";
             content.appendChild(taskDescriptionDiv);
-
-
         })
 
     }
+    let renderTaskDescription=function(){
+        let descriptionBtns=document.querySelectorAll(".arrow-down-icon");
+        descriptionBtns.forEach((btn,index)=>{
+        btn.addEventListener("click",function(){
+            let description=document.querySelector(`[data-description="${index}"]`);
+            if(description.style.display=="none"){
+                description.style.display="block";
+            }else if(description.style.display=="block"){
+                description.style.display="none";
+            }
+            })
+        })
+    }
+    let homeTasks=function(){
+        content.innerHTML="";
+        let projects=storageManager.downloadProjects();
+        let tasks=[];
+        //put all project's tasks in the tasks array
+        for(let i=0;i<projects.length;i++){
+            tasks.push(projects[i].tasks);
+            
+        }
+        let allTasks=tasks.flat();
+        //display each task in a separate div
+        renderTasks(allTasks);
+        //logic to display task descriptions
+        renderTaskDescription()
+        
+
+    }
+    let todayTasks=function(){
+        content.innerHTML="";
+        let projects=storageManager.downloadProjects();
+        let tasks=[];
+        for(let i=0;i<projects.length;i++){
+           tasks.push(projects[i].tasks);
+        }
+        let allTasks=tasks.flat(); 
+        //formats the date on the task array and adds today tasks to the todayTasks array       
+        let todayTasks=allTasks.filter(task=>(format(new Date(task.date),`dd/MM/yyy`)==format(new Date(),`dd/MM/yyy`)));
+        renderTasks(todayTasks);
+        renderTaskDescription();
+    }
+    let weekTasks=function(){
+        content.innerHTML="";
+        let projects=storageManager.downloadProjects();
+        let tasks=[];
+        for(let i=0;i<projects.length;i++){
+            tasks.push(projects[i].tasks);
+        }
+        let allTasks=tasks.flat();
+        let weekTasks=allTasks.filter(task=>isThisWeek(new Date(task.date), { weekStartsOn: 1 }));
+        renderTasks(weekTasks);
+        renderTaskDescription();
+    }
+    let importantTasks=function(){
+        content.innerHTML="";
+        let projects=storageManager.downloadProjects();
+        let tasks=[];
+        for(let i=0;i<projects.length;i++){
+            tasks.push(projects[i].tasks)
+        }
+        let allTasks=tasks.flat();
+        let importantTasks=allTasks.filter(task=>task.priority=="High");
+        renderTasks(importantTasks);
+        renderTaskDescription();
+
+    }
     return {
-        homeTasks
+        homeTasks,
+        todayTasks,
+        weekTasks,
+        importantTasks
     }
 }
 )();
