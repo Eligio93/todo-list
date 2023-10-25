@@ -38,7 +38,15 @@ header{
     width:300px;
     display:flex;
     flex-direction: column;
+    
+}
+#projects-div{
     overflow-y: auto;
+    position:relative;
+}
+#sb-header{
+    position:fixed;
+    
 }
 #content{
    flex:1;
@@ -86,6 +94,7 @@ header{
    background-color: var(--color1);
    border:1px solid white;
    border-radius:10px;
+   z-index: 1;
 }
 #create-todo:hover, #create-task-btn:hover,#create-project-btn:hover{
     background-color:#fa8c5d;
