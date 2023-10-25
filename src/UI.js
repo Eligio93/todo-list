@@ -137,11 +137,21 @@ let displayController=(function(){
         renderTaskDescription();
 
     }
+    let projectsTasks=function(sbProject){
+        content.innerHTML="";       
+        let projects=storageManager.downloadProjects();
+                let sbProjectName=sbProject.textContent;
+                let selectedProject=projects.find(element=>element.projectName==sbProjectName);
+                let tasks=selectedProject.tasks;
+                renderTasks(tasks);
+                renderTaskDescription();
+            }
     return {
         homeTasks,
         todayTasks,
         weekTasks,
-        importantTasks
+        importantTasks,
+        projectsTasks
     }
 }
 )();
