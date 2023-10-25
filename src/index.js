@@ -1,5 +1,5 @@
 import "./style.css";
-import createSideBar from "./createSideBar";
+import { createSideBar } from "./createSideBar";
 import {taskManager,projectManager} from "./App";
 import {displayController} from "./UI";
 let content=document.getElementById("content");
@@ -35,14 +35,15 @@ let addProject=function(){
          }else{
              alert("All informations requested are needed");
          }
-        sideBar.innerHTML="";
-        createSideBar();
+       
         
     })
 }
 
 
-createSideBar();
+createSideBar.showSummary();
+createSideBar.showProjects();
+createSideBar.showCreateBtn();
 displayController.homeTasks();
 
 let createTodo=document.getElementById("create-todo");
@@ -70,3 +71,14 @@ todayBtn.addEventListener("click",displayController.todayTasks);
 
 let weekBtn=document.getElementById("this week-btn");
 weekBtn.addEventListener("click",displayController.weekTasks);
+let importantBtn=document.getElementById("important-btn");
+importantBtn.addEventListener("click",displayController.importantTasks);
+
+let sbProjects=document.querySelectorAll("[data-projects-sb]");
+if(sbProjects){
+    sbProjects.forEach(project=>{
+        project.addEventListener("click",function(){
+            displayController.projectsTasks(project);
+        })
+    })
+}
