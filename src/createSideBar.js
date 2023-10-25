@@ -4,62 +4,85 @@ import importantIcon from "./img/icon-important.svg";
 import homeIcon from "./img/home-icon.svg";
 import { storageManager } from "./localStorage";
 //Need projects to be imported to create the sideELement project in case 
-let sideELements=[{
-    title:"Home",
-    imgSrc:homeIcon
-},{
-    title:"Today",
-    imgSrc:todayIcon
+let sideELements = [{
+    title: "Home",
+    imgSrc: homeIcon
+}, {
+    title: "Today",
+    imgSrc: todayIcon
 },
 {
-    title:"This Week",
-    imgSrc:weekIcon
+    title: "This Week",
+    imgSrc: weekIcon
 },
 {
-    title:"Important",
-    imgSrc:importantIcon
+    title: "Important",
+    imgSrc: importantIcon
 }];
 
-let createSideBar=function(){
-    let sideBar=document.getElementById("sidebar");
-    let summary=document.createElement("h2");
-    summary.textContent="Summary";
-    summary.className="sb-header";
-    sideBar.appendChild(summary);
-    for(let i=0;i<sideELements.length;i++){
-        //creates sb Element div
-        let sbElement=document.createElement("div");
-        sbElement.className="sb-element";
-        sbElement.id=sideELements[i].title.toLowerCase()+"-btn";
-        //get the icon img
-        let icon=document.createElement("img");
-        icon.src=sideELements[i].imgSrc;
-        let elementText=document.createElement("p");
-        elementText.textContent=sideELements[i].title;
-        sbElement.appendChild(icon);
-        sbElement.appendChild(elementText);
-        sideBar.appendChild(sbElement);
-
-    }
-    let projects=storageManager.downloadProjects();
-    if(projects.length>1){
-        let projectSummary=document.createElement("h2");
-        projectSummary.textContent="Projects";
-        projectSummary.className="sb-header";
-        sideBar.appendChild(projectSummary);
-        for(let i=1;i<projects.length;i++){
-            let sbElement=document.createElement("div");
-            sbElement.className="sb-element";
-            sbElement.id=projects[i].projectName.toLowerCase()+"-sb";
-            sbElement.setAttribute("data-projects-sb",i);
-            sbElement.textContent=projects[i].projectName;
-            sideBar.appendChild(sbElement);
+let createSideBar = (function () {
+    let sideBar = document.getElementById("sidebar");    
+    let showSummary = function () {        
+        let summaryDiv = document.createElement("div");
+        summaryDiv.id = "summary-div";
+        let summaryHeader = document.createElement("h2");
+        summaryHeader.textContent = "Summary";
+        summaryHeader.className = "sb-header";
+        summaryDiv.appendChild(summaryHeader);
+        for (let i = 0; i < sideELements.length; i++) {
+            //creates sb Element div
+            let sbElement = document.createElement("div");
+            sbElement.className = "sb-element";
+            sbElement.id = sideELements[i].title.toLowerCase() + "-btn";
+            //get the icon img
+            let icon = document.createElement("img");
+            icon.src = sideELements[i].imgSrc;
+            let elementText = document.createElement("p");
+            elementText.textContent = sideELements[i].title;
+            sbElement.appendChild(icon);
+            sbElement.appendChild(elementText);
+            summaryDiv.appendChild(sbElement);
+            sideBar.appendChild(summaryDiv);
         }
     }
-    let createBtn=document.createElement("button");
-    createBtn.id="create-todo";
-    sideBar.appendChild(createBtn);
+    let showProjects = function () {
+            let projects = storageManager.downloadProjects();
+            if (projects.length > 1) {
+                let projectsDiv = document.createElement("div");
+                projectsDiv.id = "projects-div";
+                let projectsHeader = document.createElement("h2");
+                projectsHeader.textContent = "Projects";
+                projectsHeader.className = "sb-header";
+                projectsDiv.appendChild(projectsHeader);
+                for (let i = 1; i < projects.length; i++) {
+                    let sbElement = document.createElement("div");
+                    sbElement.className = "sb-element";
+                    sbElement.id = projects[i].projectName.toLowerCase() + "-sb";
+                    sbElement.setAttribute("data-projects-sb", i);
+                    sbElement.textContent = projects[i].projectName;
+                    projectsDiv.appendChild(sbElement);
+                    sideBar.appendChild(projectsDiv)
+                }
+            }
+    }
+    let showCreateBtn=function(){
+        let createBtn = document.createElement("button");
+        createBtn.id = "create-todo";
+        sideBar.appendChild(createBtn);
+    }
+    return{
+        showSummary,
+        showProjects,
+        showCreateBtn
+    }
+    }
+)();
 
 
-}
-export default createSideBar;
+
+
+    
+
+
+
+export {createSideBar};
