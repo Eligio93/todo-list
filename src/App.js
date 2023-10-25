@@ -1,6 +1,9 @@
 import { storageManager } from "./localStorage";
 import { displayController } from "./UI";
+import {createSideBar} from "./createSideBar";
+
 let projects = storageManager.downloadProjects();
+
 
 let content = document.getElementById("content");
     //all about creating a task
@@ -141,6 +144,8 @@ const projectManager = (function () {
         projects.push(newProject);
         storageManager.saveProject(projects);
         content.innerHTML="";//porta alla scehrmata dei progetti
+        document.getElementById("projects-div").innerHTML="";
+        createSideBar.showProjects();
     }
 
     return {
