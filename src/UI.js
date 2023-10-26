@@ -19,6 +19,13 @@ let displayController=(function(){
             let showDate=document.createElement("div");
             showDate.className="show-date";
             showDate.textContent=format(new Date(task.date),'dd/MM/yyyy');
+            let showProject=document.createElement("div");
+            showProject.className="show-project";
+            if(task.taskProject!=="default"){
+                showProject.textContent=task.taskProject;
+            }else{
+                showProject.textContent="";
+            }            
             let showPriority=document.createElement("div");
             showPriority.className="show-priority";
             let priorityColor=document.createElement("div");
@@ -55,6 +62,7 @@ let displayController=(function(){
             taskDiv.appendChild(arrowDown);
             taskDiv.appendChild(showTitle);
             taskDiv.appendChild(showDate);
+            taskDiv.appendChild(showProject);
             taskDiv.appendChild(showPriority);
             taskDiv.appendChild(modifyBtns);
             content.appendChild(taskDiv);
@@ -138,11 +146,12 @@ let displayController=(function(){
 
     }
     let projectsTasks=function(sbProject){
-        content.innerHTML=""; 
+        content.innerHTML="";
         let projects=storageManager.downloadProjects();
                 let sbProjectName=sbProject.textContent;
                 let selectedProject=projects.find(element=>element.projectName==sbProjectName);
                 let tasks=selectedProject.tasks;
+                console.log(tasks);
                 renderTasks(tasks);
                 renderTaskDescription();
             }
