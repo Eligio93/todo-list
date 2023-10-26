@@ -18,7 +18,7 @@ let displayController=(function(){
             showTitle.textContent=task.title;
             let showDate=document.createElement("div");
             showDate.className="show-date";
-            showDate.textContent=task.date;
+            showDate.textContent=format(new Date(task.date),'dd/MM/yyyy');
             let showPriority=document.createElement("div");
             showPriority.className="show-priority";
             let priorityColor=document.createElement("div");
@@ -138,7 +138,7 @@ let displayController=(function(){
 
     }
     let projectsTasks=function(sbProject){
-        content.innerHTML="";       
+        content.innerHTML=""; 
         let projects=storageManager.downloadProjects();
                 let sbProjectName=sbProject.textContent;
                 let selectedProject=projects.find(element=>element.projectName==sbProjectName);
