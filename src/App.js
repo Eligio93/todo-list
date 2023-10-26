@@ -1,58 +1,14 @@
 import { storageManager } from "./localStorage";
 import { displayController } from "./UI";
 import {createSideBar} from "./createSideBar";
+import { format} from 'date-fns'
 
-let projects = storageManager.downloadProjects();
+
 
 
 let content = document.getElementById("content");
-    //all about creating a task
+    //all about creating and modifying a task
 const taskManager = (function () {
-    
-    let createTask = function () {
-
-        //class to create a task object
-        class Task {
-            constructor(title, date, description, priority, taskProject) {
-                this.title = title;
-                this.date = date;
-                this.description = description;
-                this.priority = priority;
-                this.taskProject = taskProject;
-            }
-        }
-
-        //get task value from form
-        let taskTitle = document.getElementById("task-title").value;
-        let taskDate = document.getElementById("task-date").value;
-        let taskDescription = document.getElementById("task-description").value;
-        let taskPriority = document.getElementById("task-priority").value;
-        let taskProject = document.getElementById("select-project-menu");
-        //Check if there s the menu to select a project
-        if (taskProject) {
-            taskProject = taskProject.value;
-            let newTask = new Task(taskTitle, taskDate, taskDescription, taskPriority, taskProject);
-            //Put the created task in the belonging project
-            projects.forEach(obj => {
-                if (obj.projectName == newTask.taskProject) {
-                    obj.tasks.push(newTask);
-                    storageManager.saveProject(projects);//save the updated project in local storage
-                }
-            })
-        } else {
-            
-            taskProject = "default";
-            let newTask = new Task(taskTitle, taskDate, taskDescription, taskPriority, taskProject);
-            //the new task is been putted in the default project
-            let defaultProject = projects.find(obj => obj.projectName == "default");
-            defaultProject.tasks.push(newTask);
-            storageManager.saveProject(projects);
-
-        }
-        content.innerHTML="";
-        displayController.homeTasks();
-    }
-
     let createTaskForm = function () { 
         content.innerHTML = `<form id="task-form">
         <label for="task-title">Title:</label>
@@ -71,7 +27,7 @@ const taskManager = (function () {
         </select>
         <button type="button" id="create-task-btn">Create Task</button>
     </form>`
-   
+    let projects = storageManager.downloadProjects();
         //give the option to choose in whic project the task will be putted
         if (projects.length == 1) {
             document.getElementById("checkbox").style.display = "none";
@@ -101,10 +57,81 @@ const taskManager = (function () {
             })
         }
     }
+    let createTask = function () {
+        let projects=storageManager.downloadProjects();
+        //class to create a task object
+        class Task {
+            constructor(title, date, description, priority, taskProject) {
+                this.title = title;
+                this.date = date;
+                this.description = description;
+                this.priority = priority;
+                this.taskProject = taskProject;
+            }
+        }
+
+        //get task value from form
+        let taskTitle = document.getElementById("task-title").value;
+        let taskDate = document.getElementById("task-date").value;
+        let taskDescription = document.getElementById("task-description").value;
+        let taskPriority = document.getElementById("task-priority").value;
+        let taskProject = document.getElementById("select-project-menu");
+        //Check if there s the menu to select a project
+        if (taskProject) {
+            taskProject = taskProject.value;
+            let newTask = new Task(taskTitle, taskDate, taskDescription, taskPriority, taskProject);
+            //Put the created task in the belonging project
+            
+            projects.forEach(obj => {
+                if (obj.projectName == newTask.taskProject) {
+                    obj.tasks.push(newTask);
+                    storageManager.saveProject(projects);//save the updated project in local storage
+                }
+            })
+        } else {
+            
+            taskProject = "default";
+            let newTask = new Task(taskTitle, taskDate, taskDescription, taskPriority, taskProject);
+            //the new task is been putted in the default project
+            let defaultProject = projects.find(obj => obj.projectName == "default");
+            defaultProject.tasks.push(newTask);
+            storageManager.saveProject(projects);
+
+        }
+        content.innerHTML="";
+        
+    }
+    let deleteTask=function(deleteBtn){
+        let divTask=deleteBtn.parentNode.parentNode;
+        let taskToDeleteTitle=divTask.querySelector(".show-title").textContent;
+        let tasktoDeleteDate=divTask.querySelector(".show-date").textContent;
+        let projects=storageManager.downloadProjects();
+        for(let i=0;i<projects.length;i++){
+            for(let j=0;j<projects[i].tasks.length;j++){
+                let formatProjectDate=format(new Date(projects[i].tasks[j].date),"dd/MM/yyyy");
+                if(projects[i].tasks[j].title==taskToDeleteTitle && formatProjectDate==tasktoDeleteDate){
+                    projects[i].tasks.splice(j,1);
+                    console.log(projects[i].tasks)
+                    
+                }
+
+            }
+        }
+        storageManager.saveProject(projects);
+        divTask.remove();
+       
+    }
+    let editTask=function(){
+
+    }
+
+    
 
     return {
         createTask,
-        createTaskForm
+        createTaskForm,
+        deleteTask,
+        editTask
     }
 
 
@@ -144,7 +171,10 @@ const projectManager = (function () {
         projects.push(newProject);
         storageManager.saveProject(projects);
         content.innerHTML="";//porta alla scehrmata dei progetti
-        document.getElementById("projects-div").innerHTML="";
+        if(document.getElementById("projects-div")){
+            document.getElementById("projects-div").remove();
+        }
+       
         createSideBar.showProjects();
     }
 
