@@ -40,7 +40,7 @@ let addProject=function(){
     })
 }
 
-
+//initialize page
 createSideBar.showSummary();
 createSideBar.showProjects();
 createSideBar.showCreateBtn();
@@ -74,11 +74,9 @@ weekBtn.addEventListener("click",displayController.weekTasks);
 let importantBtn=document.getElementById("important-btn");
 importantBtn.addEventListener("click",displayController.importantTasks);
 
-let sbProjects=document.querySelectorAll("[data-projects-sb]");
-if(sbProjects){
-    sbProjects.forEach(project=>{
-        project.addEventListener("click",function(){
-            displayController.projectsTasks(project);
-        })
-    })
+//manage the click event on the projects in sidebar
+document.addEventListener("click",function(event){
+if(event.target.getAttribute("data-projects-sb")){
+    displayController.projectsTasks(event.target);
 }
+})
