@@ -10,7 +10,7 @@ let addTask=function(){
     taskManager.createTaskForm();
     let createTaskBtn=document.getElementById("create-task-btn");
     let taskForm=document.getElementById("task-form");
-    createTaskBtn.addEventListener("click",function(event){
+    createTaskBtn.addEventListener("click",function(){
         //check validity of the form and date
         if(taskForm.checkValidity()){
             taskManager.createTask();
@@ -98,5 +98,11 @@ content.addEventListener("click",function(event){
 sideBar.addEventListener("click",function(event){
     if(event.target.classList=="delete-btn"){
         projectManager.deleteProject(event.target)
+    }
+})
+//click event on edit project
+sideBar.addEventListener("click",function(event){
+    if(event.target.classList=="edit-btn"){
+        projectManager.editProject(event.target);
     }
 })
