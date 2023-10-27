@@ -201,7 +201,7 @@ const projectManager = (function () {
         let projectDate = document.getElementById("project-date").value;
         let projectPriority = document.getElementById("project-priority").value;
         let newProject = new Project(projectName, projectDate, projectPriority);
-        projects = storageManager.downloadProjects();
+        let projects = storageManager.downloadProjects();
         projects.push(newProject);
         storageManager.saveProject(projects);
         content.innerHTML="";//porta alla scehrmata dei progetti
@@ -211,10 +211,31 @@ const projectManager = (function () {
        
         createSideBar.showProjects();
     }
+    let deleteProject = function(deleteBtn){
+        let divProject=deleteBtn.parentNode.parentNode;
+        let projectToDeleteName=divProject.id.replace("-sb","");
+        let projects=storageManager.downloadProjects();
+        for(let i=0;i<projects.length;i++){
+            if(projects[i].projectName==projectToDeleteName){
+                projects.splice(i,1);
+            }
+        }
+        storageManager.saveProject(projects);
+        divProject.remove();
+        displayController.homeTasks();
+        document.getElementById("projects-div").remove();
+        createSideBar.showProjects();
+       
+    }
+    let editProject=function(){
+
+    }
 
     return {
         createProjectForm,
-        createProject
+        createProject,
+        deleteProject,
+        editProject
     }
 })();
 
