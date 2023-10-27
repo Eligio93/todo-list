@@ -151,7 +151,7 @@ header{
     
 }
 
-.show-title,.show-date,.show-priority{
+.show-title,.show-date,.show-priority,.show-project{
     flex:1;
 }
 .show-priority{
@@ -186,3 +186,8 @@ header{
     margin:0;
     padding:0;
 }
+.sb-project-element{
+    display:flex;
+    justify-content: space-between;
+}
+
