@@ -213,7 +213,7 @@ const projectManager = (function () {
     }
     let deleteProject = function(deleteBtn){
         let divProject=deleteBtn.parentNode.parentNode;
-        let projectToDeleteName=divProject.id.replace("-sb","");
+        let projectToDeleteName=divProject.textContent;
         let projects=storageManager.downloadProjects();
         for(let i=0;i<projects.length;i++){
             if(projects[i].projectName==projectToDeleteName){
@@ -227,7 +227,30 @@ const projectManager = (function () {
         createSideBar.showProjects();
        
     }
-    let editProject=function(){
+    let editProject=function(editBtn){
+        let divProject=editBtn.parentNode.parentNode;
+        let projectToEditName=divProject.textContent;
+        let projects=storageManager.downloadProjects();
+        let selectedProject=projects.find(obj=>obj.projectName==projectToEditName);
+        let projectToEditDate=selectedProject.date;
+        let projectToEditPriority=selectedProject.priority;
+       
+        createProjectForm();
+        document.getElementById("project-name").value=projectToEditName;
+        document.getElementById("project-date").value=projectToEditDate;
+        document.getElementById("project-priority").value=projectToEditPriority;
+        document.getElementById("create-project-btn").textContent="Edit Project";
+        document.getElementById("create-project-btn").addEventListener("click",function(){
+            selectedProject.projectName=document.getElementById("project-name").value;
+            selectedProject.date=document.getElementById("project-date").value;
+            selectedProject.priority=document.getElementById("project-priority").value;
+            storageManager.saveProject(projects);
+            document.getElementById("projects-div").remove();
+            createSideBar.showProjects();
+            displayController.homeTasks();
+
+        });
+       
 
     }
 
