@@ -94,3 +94,9 @@ content.addEventListener("click",function(event){
     }
 
 })
+//click event on delete project btn
+sideBar.addEventListener("click",function(event){
+    if(event.target.classList=="delete-btn"){
+        projectManager.deleteProject(event.target)
+    }
+})
