@@ -13,7 +13,8 @@ let addTask=function(){
     createTaskBtn.addEventListener("click",function(event){
         //check validity of the form and date
         if(taskForm.checkValidity()){
-            taskManager.createTask();  
+            taskManager.createTask();
+            displayController.homeTasks(); 
         }else if(new Date(document.getElementById("task-date").value)< new Date()){
            alert("Your task can't have a date in the past")
         }else{
@@ -74,9 +75,22 @@ weekBtn.addEventListener("click",displayController.weekTasks);
 let importantBtn=document.getElementById("important-btn");
 importantBtn.addEventListener("click",displayController.importantTasks);
 
-//manage the click event on the projects in sidebar
+//click event on the projects in sidebar
 document.addEventListener("click",function(event){
 if(event.target.getAttribute("data-projects-sb")){
     displayController.projectsTasks(event.target);
 }
+})
+//click event on delete task button
+content.addEventListener("click",function(event){
+   if(event.target.classList=="delete-btn"){
+    taskManager.deleteTask(event.target);
+   }
+})
+//click event on edit task button
+content.addEventListener("click",function(event){
+    if(event.target.classList=="edit-btn"){        
+        taskManager.editTask(event.target);        
+    }
+
 })
