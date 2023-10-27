@@ -147,11 +147,14 @@ let displayController=(function(){
     }
     let projectsTasks=function(sbProject){
         content.innerHTML="";
+        let projectTaskHeader=document.createElement("h2");
+        projectTaskHeader.id="project-task-header";
+        projectTaskHeader.textContent="Project "+sbProject.textContent+" tasks";
+        content.appendChild(projectTaskHeader);
         let projects=storageManager.downloadProjects();
                 let sbProjectName=sbProject.textContent;
                 let selectedProject=projects.find(element=>element.projectName==sbProjectName);
                 let tasks=selectedProject.tasks;
-                console.log(tasks);
                 renderTasks(tasks);
                 renderTaskDescription();
             }
