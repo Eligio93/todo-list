@@ -1,13 +1,12 @@
 import { storageManager } from "./localStorage";
-import { displayController } from "./UI";
 import {createSideBar} from "./createSideBar";
 import { format} from 'date-fns'
-
-
-
-
+import { displayController } from "./UI";
 let content = document.getElementById("content");
-    //all about creating and modifying a task
+
+
+
+    //all about tasks
 const taskManager = (function () {
     let createTaskForm = function () { 
         content.innerHTML = `<form id="task-form">
@@ -34,25 +33,25 @@ const taskManager = (function () {
             document.querySelector(`label[for="checkbox"]`).style.display = "none";
         } else {
             let checkbox = document.getElementById("checkbox");
-            checkbox.addEventListener("change", function () {
-                if (checkbox.checked) {   
-                    let selectProject = document.createElement("select");
-                    selectProject.id = "select-project-menu";                 
-                    for(let i=0;i<projects.length;i++){
-                        if(projects[i].projectName !== "default"){
-                            let projectOption = document.createElement("option");
-                            projectOption.setAttribute("value", projects[i].projectName);
-                            projectOption.textContent = projects[i].projectName;
-                            selectProject.appendChild(projectOption);
-
-                        }
-
-                    }
-                    checkbox.insertAdjacentElement("afterend", selectProject);
-                }else{
-                   document.getElementById("select-project-menu").remove();
-                   
+            let selectProject = document.createElement("select");
+            selectProject.id = "select-project-menu";                 
+            for(let i=0;i<projects.length;i++){
+                if(projects[i].projectName !== "default"){
+                    let projectOption = document.createElement("option");
+                    projectOption.setAttribute("value", projects[i].projectName);
+                    projectOption.textContent = projects[i].projectName;
+                    selectProject.appendChild(projectOption);
                 }
+            }
+            checkbox.insertAdjacentElement("afterend", selectProject);
+            selectProject.style.display="none";
+            checkbox.addEventListener("change", function () {
+                if(checkbox.checked){   
+                    selectProject.style.display="block";    
+                }else{
+                    selectProject.style.display="none";
+                }
+               
 
             })
         }
@@ -77,7 +76,7 @@ const taskManager = (function () {
         let taskPriority = document.getElementById("task-priority").value;
         let taskProject = document.getElementById("select-project-menu");
         //Check if there s the menu to select a project
-        if (taskProject) {
+        if (taskProject && document.getElementById("checkbox").checked) {
             taskProject = taskProject.value;
             let newTask = new Task(taskTitle, taskDate, taskDescription, taskPriority, taskProject);
             //Put the created task in the belonging project
@@ -110,9 +109,7 @@ const taskManager = (function () {
             for(let j=0;j<projects[i].tasks.length;j++){
                 let formatProjectDate=format(new Date(projects[i].tasks[j].date),"dd/MM/yyyy");
                 if(projects[i].tasks[j].title==taskToDeleteTitle && formatProjectDate==tasktoDeleteDate){
-                    projects[i].tasks.splice(j,1);
-                    console.log(projects[i].tasks)
-                    
+                    projects[i].tasks.splice(j,1);                    
                 }
 
             }
@@ -121,12 +118,49 @@ const taskManager = (function () {
         divTask.remove();
        
     }
-    let editTask=function(){
+    let editTask=function(editBtn){
+        let divTask=editBtn.parentNode.parentNode;
+        let divDataTask=divTask.getAttribute("data-task");
+        let taskToEditDescription=content.querySelector(`[data-description="${divDataTask}"]`).textContent;        
+        let taskToEditTitle=divTask.querySelector(".show-title").textContent;
+        let taskToEditDate=divTask.querySelector(".show-date").textContent;       
+        let taskToEditProject=divTask.querySelector(".show-project").textContent;
+        let tasktoEditPriority=divTask.querySelector(".show-priority").querySelector(".priority-description").textContent;
+        createTaskForm();
+        document.getElementById("task-title").value=taskToEditTitle;
+        document.getElementById("task-date").value=taskToEditDate.split('/').reverse().join('-');;
+        document.getElementById("task-description").textContent=taskToEditDescription;
+        if(taskToEditProject==""){
+            taskToEditProject="default";
+        }else{
+            document.getElementById("checkbox").checked=true;
+            let selectionMenuProject=document.getElementById("select-project-menu");
+            selectionMenuProject.style.display="block";
+            selectionMenuProject.value=taskToEditProject;
+        }
+        let selectionMenuPriority=document.getElementById("task-priority");
+        selectionMenuPriority.value=tasktoEditPriority;
+        document.getElementById("create-task-btn").textContent="Edit Task";
+        let createEditedTaskBtn=document.getElementById("create-task-btn");
+       
+        createEditedTaskBtn.addEventListener("click",function(){
+            let projects=storageManager.downloadProjects();
+            for(let i=0;i<projects.length;i++){
+                for(let j=0;j<projects[i].tasks.length;j++){
+                    if(projects[i].tasks[j].title==taskToEditTitle && projects[i].tasks[j].description==taskToEditDescription && projects[i].tasks[j].taskProject==taskToEditProject){
+                        projects[i].tasks.splice(j, 1);
+                    }
+                }
 
+            }
+            storageManager.saveProject(projects);
+            createTask();
+            displayController.homeTasks();
+            
+          
+           
+        })
     }
-
-    
-
     return {
         createTask,
         createTaskForm,
@@ -136,7 +170,7 @@ const taskManager = (function () {
 
 
 })();
-
+//all about Projects
 const projectManager = (function () {
     class Project {
         constructor(projectName, date, priority) {
