@@ -92,6 +92,8 @@ let displayController=(function(){
     }
     let homeTasks=function(){
         content.innerHTML="";
+        let homeTaskHeader=document.createElement("h2");
+        homeTaskHeader.className="content-header";
         let projects=storageManager.downloadProjects();
         let tasks=[];
         //put all project's tasks in the tasks array
@@ -100,15 +102,25 @@ let displayController=(function(){
             
         }
         let allTasks=tasks.flat();
-        //display each task in a separate div
-        renderTasks(allTasks);
-        //logic to display task descriptions
-        renderTaskDescription()
+        if(allTasks.length>0){
+            homeTaskHeader.textContent="All Tasks"
+            content.appendChild(homeTaskHeader);
+            //display each task in a separate div
+            renderTasks(allTasks);
+            //logic to display task descriptions
+            renderTaskDescription();
+        }else{
+            homeTaskHeader.textContent="You have no tasks, please add one from the + button below"
+            content.appendChild(homeTaskHeader);
+        }
+      
         
 
     }
     let todayTasks=function(){
         content.innerHTML="";
+        let todayTaskHeader=document.createElement("h2");
+        todayTaskHeader.className="content-header";       
         let projects=storageManager.downloadProjects();
         let tasks=[];
         for(let i=0;i<projects.length;i++){
@@ -117,11 +129,21 @@ let displayController=(function(){
         let allTasks=tasks.flat(); 
         //formats the date on the task array and adds today tasks to the todayTasks array       
         let todayTasks=allTasks.filter(task=>(format(new Date(task.date),`dd/MM/yyy`)==format(new Date(),`dd/MM/yyy`)));
-        renderTasks(todayTasks);
-        renderTaskDescription();
+        if(todayTasks.length > 0){
+            todayTaskHeader.textContent="Tasks of the day";
+            content.appendChild(todayTaskHeader);
+            renderTasks(todayTasks);
+            renderTaskDescription();
+        }else{
+            todayTaskHeader.textContent="Today you have no tasks";
+            content.appendChild(todayTaskHeader);
+        }
+        
     }
     let weekTasks=function(){
         content.innerHTML="";
+        let weekTaskHeader=document.createElement("h2");
+        weekTaskHeader.className="content-header";
         let projects=storageManager.downloadProjects();
         let tasks=[];
         for(let i=0;i<projects.length;i++){
@@ -129,11 +151,21 @@ let displayController=(function(){
         }
         let allTasks=tasks.flat();
         let weekTasks=allTasks.filter(task=>isThisWeek(new Date(task.date), { weekStartsOn: 1 }));
-        renderTasks(weekTasks);
-        renderTaskDescription();
+        if(weekTasks.length>0){
+            weekTaskHeader.textContent="Weekly tasks";
+            content.appendChild(weekTaskHeader);
+            renderTasks(weekTasks);
+            renderTaskDescription();
+        }else{
+            weekTaskHeader.textContent="You have no tasks for this week";
+            content.appendChild(weekTaskHeader);
+        }
+        
     }
     let importantTasks=function(){
         content.innerHTML="";
+        let importantTaskHeader=document.createElement("h2");
+        importantTaskHeader.className="content-header";
         let projects=storageManager.downloadProjects();
         let tasks=[];
         for(let i=0;i<projects.length;i++){
@@ -141,22 +173,35 @@ let displayController=(function(){
         }
         let allTasks=tasks.flat();
         let importantTasks=allTasks.filter(task=>task.priority=="High");
+        if(importantTasks.length > 0){
+        importantTaskHeader.textContent="High priority tasks";
+        content.appendChild(importantTaskHeader);
         renderTasks(importantTasks);
         renderTaskDescription();
+        }else{
+            importantTaskHeader.textContent="No high priority task found. Please add a new task!";
+            content.appendChild(importantTaskHeader);
+        }
+        
 
     }
     let projectsTasks=function(sbProject){
         content.innerHTML="";
         let projectTaskHeader=document.createElement("h2");
-        projectTaskHeader.id="project-task-header";
-        projectTaskHeader.textContent="Project "+sbProject.textContent+" tasks";
-        content.appendChild(projectTaskHeader);
+        projectTaskHeader.className="content-header";
         let projects=storageManager.downloadProjects();
                 let sbProjectName=sbProject.textContent;
                 let selectedProject=projects.find(element=>element.projectName==sbProjectName);
                 let tasks=selectedProject.tasks;
-                renderTasks(tasks);
-                renderTaskDescription();
+                if(tasks.length>0){
+                    projectTaskHeader.textContent="Project "+sbProject.textContent+" tasks";
+                    content.appendChild(projectTaskHeader);
+                    renderTasks(tasks);
+                    renderTaskDescription();
+                }else{
+                    projectTaskHeader.textContent="Project "+sbProject.textContent+" have no tasks";
+                    content.appendChild(projectTaskHeader);
+                }
             }
     return {
         homeTasks,
