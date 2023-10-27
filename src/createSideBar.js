@@ -57,9 +57,21 @@ let createSideBar = (function () {
                 for (let i = 1; i < projects.length; i++) {
                     let sbElement = document.createElement("div");
                     sbElement.className = "sb-element";
+                    sbElement.classList.add("sb-project-element");
                     sbElement.id = projects[i].projectName.toLowerCase() + "-sb";
                     sbElement.setAttribute("data-projects-sb", i);
                     sbElement.textContent = projects[i].projectName;
+                    let modifyBtns=document.createElement("div");
+                    modifyBtns.className="modify-btns";
+                    let deleteBtn=document.createElement("img");
+                    deleteBtn.className="delete-btn";
+                    deleteBtn.src="/src/img/delete-icon.svg";
+                    let editBtn=document.createElement("img");
+                    editBtn.className="edit-btn";
+                    editBtn.src="/src/img/edit-icon.svg";
+                    modifyBtns.appendChild(deleteBtn);
+                    modifyBtns.appendChild(editBtn);
+                    sbElement.appendChild(modifyBtns)
                     projectsDiv.appendChild(sbElement);
                     sideBar.appendChild(projectsDiv)
                 }
