@@ -2,6 +2,8 @@ import "./style.css";
 import { createSideBar } from "./createSideBar";
 import {taskManager,projectManager} from "./App";
 import {displayController} from "./UI";
+import { format } from "date-fns";
+
 let content=document.getElementById("content");
 let sideBar=document.getElementById("sidebar")
 
@@ -10,13 +12,14 @@ let addTask=function(){
     taskManager.createTaskForm();
     let createTaskBtn=document.getElementById("create-task-btn");
     let taskForm=document.getElementById("task-form");
-    createTaskBtn.addEventListener("click",function(){
+    createTaskBtn.addEventListener("click",function(event){
         //check validity of the form and date
-        if(taskForm.checkValidity()){
+        if(format(new Date(document.getElementById("task-date").value),'dd/MM/yyy')< format(new Date(),'dd/MM/yyyy')){
+            alert("Your task can't have a date in the past");
+            event.preventDefault();
+        }else if(taskForm.checkValidity()){
             taskManager.createTask();
             displayController.homeTasks(); 
-        }else if(new Date(document.getElementById("task-date").value)< new Date()){
-           alert("Your task can't have a date in the past")
         }else{
             alert("All informations requested are needed");
         }
