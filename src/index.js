@@ -30,17 +30,17 @@ let addTask=function(){
 let addProject=function(){
     projectManager.createProjectForm();
     let createProjectBtn=document.getElementById("create-project-btn");
-    createProjectBtn.addEventListener("click",function(){
+    createProjectBtn.addEventListener("click",function(event){
         let projectForm=document.getElementById("project-form");
-        if(projectForm.checkValidity()){
-            projectManager.createProject();    
-        }else if(new Date(document.getElementById("project-date").value)< new Date()){
-            alert("Your project date can't have a date in the past")
-         }else{
-             alert("All informations requested are needed");
-         }
-       
-        
+
+        if(format(new Date(document.getElementById("project-date").value),'dd/MM/yyy')< format(new Date(),'dd/MM/yyyy')){
+            alert("Your project date can't have a date in the past");
+            event.preventDefault();
+        }else if(projectForm.checkValidity()){
+            projectManager.createProject(); 
+        }else{
+            alert("All informations requested are needed");
+        }
     })
 }
 
