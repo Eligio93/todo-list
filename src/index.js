@@ -2,7 +2,7 @@ import "./style.css";
 import { createSideBar } from "./createSideBar";
 import {taskManager,projectManager} from "./App";
 import {displayController} from "./UI";
-import { format } from "date-fns";
+import { format,parse} from "date-fns";
 
 let content=document.getElementById("content");
 let sideBar=document.getElementById("sidebar")
@@ -13,16 +13,17 @@ let addTask=function(){
     let createTaskBtn=document.getElementById("create-task-btn");
     let taskForm=document.getElementById("task-form");
     createTaskBtn.addEventListener("click",function(event){
-        //check validity of the form and date
-        if(format(new Date(document.getElementById("task-date").value),'dd/MM/yyy')< format(new Date(),'dd/MM/yyyy')){
+        // let formattedFormDate=;
+        // let formattedTodayDate=;
+        //check validity of the form and date 
+        if(!taskForm.checkValidity()){
+            alert("All informations requested are needed");
+        }else if(parse(format(new Date(document.getElementById("task-date").value),'dd/MM/yyyy'),'dd/MM/yyyy', new Date())< parse(format(new Date(),'dd/MM/yyyy'),'dd/MM/yyyy',new Date())){
             alert("Your task can't have a date in the past");
             event.preventDefault();
-        }else if(taskForm.checkValidity()){
-            taskManager.createTask();
-            displayController.homeTasks(); 
         }else{
-            alert("All informations requested are needed");
-        }
+            taskManager.createTask(); 
+        } 
         
     });  
 }
@@ -30,10 +31,11 @@ let addTask=function(){
 let addProject=function(){
     projectManager.createProjectForm();
     let createProjectBtn=document.getElementById("create-project-btn");
+    let projectForm=document.getElementById("project-form");
     createProjectBtn.addEventListener("click",function(event){
-        let projectForm=document.getElementById("project-form");
-
-        if(format(new Date(document.getElementById("project-date").value),'dd/MM/yyy')< format(new Date(),'dd/MM/yyyy')){
+        let formattedFormDate=format(new Date(document.getElementById("project-date").value),'dd/MM/yyyy');
+        let formattedTodayDate=format(new Date(),'dd/MM/yyyy');
+        if(parse(formattedFormDate,'dd/MM/yyyy', new Date())< parse(formattedTodayDate,'dd/MM/yyyy',new Date())){
             alert("Your project date can't have a date in the past");
             event.preventDefault();
         }else if(projectForm.checkValidity()){
