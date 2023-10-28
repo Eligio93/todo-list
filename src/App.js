@@ -56,7 +56,7 @@ const taskManager = (function () {
             })
         }
     }
-    let createTask = function (event) {
+    let createTask = function () {
         let projects = storageManager.downloadProjects();
         //class to create a task object
         class Task {
@@ -81,7 +81,16 @@ const taskManager = (function () {
         } else {
             taskProject = "default";
         }
-        let newTask = new Task(taskTitle, taskDate, taskDescription, taskPriority, taskProject);
+        //controllo titolo e data
+        let existingTask=projects.some(project=> {
+
+            
+            return project.tasks.some(task=>task.title==taskTitle && task.date==taskDate);
+        })
+        if(existingTask){
+            alert("A task with same title and same date already exists")
+        }else{
+            let newTask = new Task(taskTitle, taskDate, taskDescription, taskPriority, taskProject);
         projects.forEach(obj => {
             if (obj.projectName == newTask.taskProject) {
                 obj.tasks.push(newTask);
@@ -89,9 +98,12 @@ const taskManager = (function () {
             }
         })
         displayController.homeTasks();
+
+        }
+        
     }
 
-    
+
     let deleteTask = function (deleteBtn) {
         let divTask = deleteBtn.parentNode.parentNode;
         let taskToDeleteTitle = divTask.querySelector(".show-title").textContent;
