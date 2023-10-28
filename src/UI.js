@@ -187,21 +187,35 @@ let displayController=(function(){
     }
     let projectsTasks=function(sbProject){
         content.innerHTML="";
-        let projectTaskHeader=document.createElement("h2");
+        let projectTaskHeader=document.createElement("div");
+        let projectTaskTitle=document.createElement("h2");
+        let projectTaskPriority=document.createElement("p");
+        let projectTaskDate=document.createElement("p");
         projectTaskHeader.className="content-header";
         let projects=storageManager.downloadProjects();
+                //project Name taken from the sb project
                 let sbProjectName=sbProject.textContent;
                 let selectedProject=projects.find(element=>element.projectName==sbProjectName);
+                projectTaskPriority.textContent=selectedProject.priority;
+                projectTaskDate.textContent=format(new Date(selectedProject.date),'dd/MM/yyyy');
                 let tasks=selectedProject.tasks;
                 if(tasks.length>0){
-                    projectTaskHeader.textContent="Project "+sbProject.textContent+" tasks";
-                    content.appendChild(projectTaskHeader);
+                    projectTaskTitle.textContent="Project "+sbProject.textContent+" tasks";
+                    projectTaskHeader.appendChild(projectTaskTitle);
+                    projectTaskHeader.appendChild(projectTaskPriority);
+                    projectTaskHeader.appendChild(projectTaskDate);
+                    content.appendChild(projectTaskHeader)
+                   
                     renderTasks(tasks);
                     renderTaskDescription();
                 }else{
-                    projectTaskHeader.textContent="Project "+sbProject.textContent+" have no tasks";
-                    content.appendChild(projectTaskHeader);
+                    projectTaskTitle.textContent="Project "+sbProject.textContent+" have no tasks";
+                   projectTaskHeader.appendChild(projectTaskTitle);
+                   projectTaskHeader.appendChild(projectTaskPriority);
+                    projectTaskHeader.appendChild(projectTaskDate);
+                    content.appendChild(projectTaskHeader)
                 }
+               
             }
     return {
         homeTasks,
