@@ -1,5 +1,8 @@
 import { storageManager } from "./localStorage";
-import { format, isThisWeek} from 'date-fns'
+import { format, isThisWeek} from 'date-fns';
+import deleteIcon from "./img/delete-icon.svg";
+import editIcon from "./img/edit-icon.svg";
+import arrowDownIcon from "./img/arrow-down-icon.svg"
 let content=document.getElementById("content");
 
 
@@ -12,7 +15,7 @@ let displayController=(function(){
             taskDiv.setAttribute("data-task",index)
             let arrowDown=document.createElement("img");
             arrowDown.className="arrow-down-icon";
-            arrowDown.src="/src/img/arrow-down-icon.svg";
+            arrowDown.src=arrowDownIcon;
             let showTitle=document.createElement("div");
             showTitle.className="show-title";
             showTitle.textContent=task.title;
@@ -47,11 +50,11 @@ let displayController=(function(){
             let deleteBtn=document.createElement("img");
             deleteBtn.className="delete-btn";
             deleteBtn.setAttribute("data-task",index)
-            deleteBtn.src="/src/img/delete-icon.svg";
+            deleteBtn.src=deleteIcon;
             let editBtn=document.createElement("img");
             editBtn.className="edit-btn";
             editBtn.setAttribute("data-task",index)
-            editBtn.src="/src/img/edit-icon.svg";
+            editBtn.src=editIcon;
             let completeBtn=document.createElement("input");
             // completeBtn.className="complete-btn";
             // completeBtn.setAttribute("data-task",index)
