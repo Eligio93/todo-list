@@ -1,260 +1,313 @@
-:root{
-    --color1:#F9B597;
-    --color2:#F1C598;
-    --headers-color:#413b2f;
-    --background-color:#978d79;
-    --section-color:#B8D8BE;
-    --elements-color:#978d79;
-    --task-div-color:#839c88;
+ /* defines color on page */
+ :root {
+     --color1: #F9B597;
+     --color2: #F1C598;
+     --headers-color: #413b2f;
+     --background-color: #978d79;
+     --section-color: #B8D8BE;
+     --elements-color: #978d79;
+     --task-div-color: #839c88;
 
-}
-*{
-    box-sizing: border-box;
-    font-family: 'Playpen Sans', cursive;
-}
+ }
 
-body{
-    background-color: var(--background-color);
-    height:100vh;
-    display:flex;
-    flex-direction: column;
-    margin:0;
-    padding:0;
-    
-}
-header{
-    width:100%;
-    height:10%;
-    display:flex;
-    padding:0 50px;
-    align-items: center;
-    margin-top:10px;
-  
-}
-#main-icon{
-    height: 100%;
-}
-header h1{
-    color:white;
-    margin:0 0 0 10px;
-    padding:0
-}
-header a{
-    height:100%;
-    margin-right:20px;
-    margin-left:auto;
-}
-#gitlogo{
-    height:100%;   
-}
+ * {
+     box-sizing: border-box;
+     font-family: 'Playpen Sans', cursive;
+ }
 
+ body {
+     background-color: var(--background-color);
+     height: 100vh;
+     display: flex;
+     flex-direction: column;
+     margin: 0;
+     padding: 0;
 
-#main{
-    height:90%;
-    display:flex;
-    gap:10px;
-    padding:20px;
-    overflow: hidden;
-    color:white;
-    
-}
-#sidebar{
-    position:relative;
-    width:300px;
-    display:flex;
-    flex-direction: column;
-    
-}
-#projects-div{
-    overflow-y: auto;
-    position:relative;
-}
-.sb-header{
-    color:var(--headers-color);
-    
-}
-#content{
-   flex:1;
-   display:flex;
-   flex-direction: column;
-   padding:20px;
-   overflow-y: auto;
-}
-#sidebar,#content{
-    background-color: var(--section-color);
-    border-radius:30px;
-    height:100%;
-    padding:10px;   
-}
-.sb-header{
-    text-align: center;
-    padding:0;
-    margin-top:20px;
-    margin-bottom: 0;
-}
+ }
 
-.sb-element{
-    width:100%;
-    height:30px;
-    background-color:var(--elements-color);
-    border-radius: 10px;
-    margin-top:15px;
-    display:flex;
-    align-items: center;
-    padding-left:10px;
-    gap:10px;
-}
-.sb-element:hover{
-    cursor: pointer;
-    background-color:var(--task-div-color);
-}
-#create-todo{
-   position:absolute;
-   background-image: url(/src/img/add-icon.svg);
-   background-repeat: no-repeat;
-   background-size: contain;
-   height:50px;
-   width:50px;
-   bottom:5%;
-   right:5%;
-   background-color: var(--color1);
-   border:1px solid white;
-   border-radius:10px;
-   z-index: 1;
-}
-#new-task-btn,#new-project-btn{
-    width:200px;
-    height:30px;
-    font-size: large;
-    align-self: center;
-    border-radius:10px;
-    border:1px solid white;
-    background-color: var(--background-color);
-    color:white;
-}
-#new-task-btn:hover,#new-project-btn:hover{
-    cursor: pointer;
-    background-color:var(--task-div-color);
-}
+ /* styles and structure the header */
+ header {
+     width: 100%;
+     height: 10%;
+     display: flex;
+     padding: 0 50px;
+     align-items: center;
+     margin-top: 10px;
 
-#create-todo:hover, #create-task-btn:hover,#create-project-btn:hover{
-    background-color:#fa8c5d;
-    cursor: pointer;
-}
-#create-todo:active, #create-task-btn:active, #create-project-btn:active{
-    background-color: var(--section-color);
-}
-#task-form,#project-form{
-    display:flex;
-    flex-direction: column;
-    width:200px;
-    height:fit-content;
-    background-color: var(--background-color);
-    padding:10px;
-    align-self: center;
-    margin-top:50px;
-    border-radius:10px;
-    border:2px solid var(--color1);
-    
-   
-}
-#task-description{
-    height:100px;
-    resize:none;
-    
-}
-#task-form label,#project-form label{
-    margin-top:10px;
-}
-#create-task-btn, #create-project-btn{
-    margin-top:10px;
-    height:30px;
-    background-color:#fa8c5d;
-    text-transform: uppercase;
-    font-weight: bold;
-    color:white;
-    border:white;
-}
-#new-task-btn,#new-project-btn{
-   margin-bottom:10px;
+ }
 
-}
+ #main-icon {
+     height: 100%;
+ }
 
-.task-div{
-    display:flex;
-    align-items: center;
-    height: 50px;
-    width:100%;
-    background-color: var(--task-div-color);
-    border-radius:10px;
-    margin-top:10px;
-    padding:20px;
-    border:1px solid white;
-    
-    
-}
+ header h1 {
+     color: white;
+     margin: 0 0 0 10px;
+     padding: 0
+ }
 
-.show-title,.show-date,.show-priority,.show-project{
-    flex:1;
-}
-.show-priority{
-    display:flex;
-    align-items: center;
-    gap:5px;
-}
-.priority-color{
-    border-radius: 100%;
-    background-color: red;
-    height:15px;
-    width:15px;
-}
-.modify-btns{
-    display:flex;
-    gap:10px; 
-}
-.arrow-down-icon,.arrow-up-icon{
-    margin-right:5px;
-}
-.arrow-down-icon:hover,#arrow-up-icon:hover{
-    cursor:pointer;
-}
-.delete-btn:hover,.edit-btn:hover,.complete-btn:hover{
-    cursor:pointer;
-}
-.task-description{
-    height:fit-content;
-    padding:5px 5px 5px 20px;
-    margin:0;
-    color:var(--headers-color);
-}
-.task-description p{
-    margin:0;
-    padding:0;
-}
-.sb-project-element{
-    display:flex;
-    justify-content: space-between;
-}
-.content-header{
-    display:flex;
-    align-items: center;
-    height:fit-content;
-    gap:20px;
-    margin:0;
-    padding:20px;
-    color:var(--headers-color);
-}
-.content-header h2{
-    flex:1;
-    margin:0;
-    padding:0;
+ header a {
+     height: 100%;
+     margin-right: 20px;
+     margin-left: auto;
+ }
 
-}
-.content-header p{
-    margin:0;
-}
-#content{
-    padding:20px;
-}
+ #gitlogo {
+     height: 100%;
+ }
+
+ /* styles and structures the sidebar and the main */
+ #main {
+     height: 90%;
+     display: flex;
+     gap: 10px;
+     padding: 20px;
+     overflow: hidden;
+     color: white;
+
+ }
+
+ #sidebar {
+     position: relative;
+     width: 300px;
+     display: flex;
+     flex-direction: column;
+
+ }
+
+ #projects-div {
+     overflow-y: auto;
+     position: relative;
+ }
+
+ .sb-header {
+     color: var(--headers-color);
+
+ }
+
+ #content {
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     padding: 20px;
+     overflow-y: auto;
+ }
+
+ #sidebar,
+ #content {
+     background-color: var(--section-color);
+     border-radius: 30px;
+     height: 100%;
+     padding: 10px;
+ }
+
+ .sb-header {
+     text-align: center;
+     padding: 0;
+     margin-top: 20px;
+     margin-bottom: 0;
+ }
+
+ .sb-element {
+     width: 100%;
+     height: 30px;
+     background-color: var(--elements-color);
+     border-radius: 10px;
+     margin-top: 15px;
+     display: flex;
+     align-items: center;
+     padding-left: 10px;
+     gap: 10px;
+ }
+
+ .sb-element:hover {
+     cursor: pointer;
+     background-color: var(--task-div-color);
+ }
+
+ /* style the button to create new task or porject */
+ #create-todo {
+     position: absolute;
+     background-image: url(/src/img/add-icon.svg);
+     background-repeat: no-repeat;
+     background-size: contain;
+     height: 50px;
+     width: 50px;
+     bottom: 5%;
+     right: 5%;
+     background-color: var(--color1);
+     border: 1px solid white;
+     border-radius: 10px;
+     z-index: 1;
+ }
+
+ #create-todo:hover,
+ #create-task-btn:hover,
+ #create-project-btn:hover {
+     background-color: #fa8c5d;
+     cursor: pointer;
+ }
+
+ #create-todo:active,
+ #create-task-btn:active,
+ #create-project-btn:active {
+     background-color: var(--section-color);
+ }
+
+ #new-task-btn,
+ #new-project-btn {
+     width: 200px;
+     height: 30px;
+     font-size: large;
+     align-self: center;
+     border-radius: 10px;
+     border: 1px solid white;
+     background-color: var(--background-color);
+     color: white;
+ }
+
+ #new-task-btn:hover,
+ #new-project-btn:hover {
+     cursor: pointer;
+     background-color: var(--task-div-color);
+ }
+
+ /* styles the forms to create and edit task and projects */
+ #task-form,
+ #project-form {
+     display: flex;
+     flex-direction: column;
+     width: 200px;
+     height: fit-content;
+     background-color: var(--background-color);
+     padding: 10px;
+     align-self: center;
+     margin-top: 50px;
+     border-radius: 10px;
+     border: 2px solid var(--color1);
 
 
+ }
+
+ #task-description {
+     height: 100px;
+     resize: none;
+
+ }
+
+ #task-form label,
+ #project-form label {
+     margin-top: 10px;
+ }
+
+ #create-task-btn,
+ #create-project-btn {
+     margin-top: 10px;
+     height: 30px;
+     background-color: #fa8c5d;
+     text-transform: uppercase;
+     font-weight: bold;
+     color: white;
+     border: white;
+ }
+
+ #new-task-btn,
+ #new-project-btn {
+     margin-bottom: 10px;
+
+ }
+
+ /* styles all the div the task are going to be displayed */
+ .task-div {
+     display: flex;
+     align-items: center;
+     height: 50px;
+     width: 100%;
+     background-color: var(--task-div-color);
+     border-radius: 10px;
+     margin-top: 10px;
+     padding: 20px;
+     border: 1px solid white;
+
+
+ }
+
+ .show-title,
+ .show-date,
+ .show-priority,
+ .show-project {
+     flex: 1;
+ }
+
+ .show-priority {
+     display: flex;
+     align-items: center;
+     gap: 5px;
+ }
+
+ .priority-color {
+     border-radius: 100%;
+     background-color: red;
+     height: 15px;
+     width: 15px;
+ }
+
+ .modify-btns {
+     display: flex;
+     gap: 10px;
+ }
+
+ .arrow-down-icon,
+ .arrow-up-icon {
+     margin-right: 5px;
+ }
+
+ .arrow-down-icon:hover,
+ #arrow-up-icon:hover {
+     cursor: pointer;
+ }
+
+ .delete-btn:hover,
+ .edit-btn:hover,
+ .complete-btn:hover {
+     cursor: pointer;
+ }
+
+ .task-description {
+     height: fit-content;
+     padding: 5px 5px 5px 20px;
+     margin: 0;
+     color: var(--headers-color);
+ }
+
+ .task-description p {
+     margin: 0;
+     padding: 0;
+ }
+
+ .sb-project-element {
+     display: flex;
+     justify-content: space-between;
+ }
+
+ /* styles the titles in content */
+ .content-header {
+     display: flex;
+     align-items: center;
+     height: fit-content;
+     gap: 20px;
+     margin: 0;
+     padding: 20px;
+     color: var(--headers-color);
+ }
+
+ .content-header h2 {
+     flex: 1;
+     margin: 0;
+     padding: 0;
+
+ }
+
+ .content-header p {
+     margin: 0;
+ }

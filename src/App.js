@@ -8,6 +8,7 @@ let content = document.getElementById("content");
 
 //all about tasks
 const taskManager = (function () {
+    //create task form
     let createTaskForm = function () {
         content.innerHTML = `<form id="task-form">
         <label for="task-title">Title:</label>
@@ -27,7 +28,7 @@ const taskManager = (function () {
         <button type="button" id="create-task-btn">Create Task</button>
     </form>`
         let projects = storageManager.downloadProjects();
-        //give the option to choose in whic project the task will be putted
+        //give the option to choose in which project the task will be putted
         if (projects.length == 1) {
             document.getElementById("checkbox").style.display = "none";
             document.querySelector(`label[for="checkbox"]`).style.display = "none";
@@ -56,6 +57,7 @@ const taskManager = (function () {
             })
         }
     }
+    //function to create a task
     let createTask = function () {
         let projects = storageManager.downloadProjects();
         //class to create a task object
@@ -75,40 +77,40 @@ const taskManager = (function () {
         let taskDescription = document.getElementById("task-description").value;
         let taskPriority = document.getElementById("task-priority").value;
         let taskProject = document.getElementById("select-project-menu");
-        //check if there s task with same name and same date
         if (taskProject && document.getElementById("checkbox").checked) {
             taskProject = taskProject.value;
         } else {
             taskProject = "default";
         }
-        //controllo titolo e data
-        let existingTask=projects.some(project=> {
+        //check if there s another task with same title and date
+        let existingTask = projects.some(project => {
 
-            
-            return project.tasks.some(task=>task.title==taskTitle && task.date==taskDate);
+
+            return project.tasks.some(task => task.title == taskTitle && task.date == taskDate);
         })
-        if(existingTask){
+        if (existingTask) {
             alert("A task with same title and same date already exists")
-        }else{
+        } else {
             let newTask = new Task(taskTitle, taskDate, taskDescription, taskPriority, taskProject);
-        projects.forEach(obj => {
-            if (obj.projectName == newTask.taskProject) {
-                obj.tasks.push(newTask);
-                storageManager.saveProject(projects);//save the updated project in local storage
-            }
-        })
-        displayController.homeTasks();
+            projects.forEach(obj => {
+                if (obj.projectName == newTask.taskProject) {
+                    obj.tasks.push(newTask);
+                    storageManager.saveProject(projects);//save the updated project in local storage
+                }
+            })
+            displayController.homeTasks();
 
         }
-        
+
     }
-
-
+    //function to delete a task(as argument is been passed the delete button clicked on sidebar)
     let deleteTask = function (deleteBtn) {
+        //get the div of the delete button clicked where there are info about the task
         let divTask = deleteBtn.parentNode.parentNode;
         let taskToDeleteTitle = divTask.querySelector(".show-title").textContent;
         let tasktoDeleteDate = divTask.querySelector(".show-date").textContent;
         let projects = storageManager.downloadProjects();
+        //check in all projects the task to delete
         for (let i = 0; i < projects.length; i++) {
             for (let j = 0; j < projects[i].tasks.length; j++) {
                 let formatProjectDate = format(new Date(projects[i].tasks[j].date), "dd/MM/yyyy");
@@ -122,7 +124,9 @@ const taskManager = (function () {
         divTask.remove();
 
     }
+    //function to edit task
     let editTask = function (editBtn) {
+        //select the task to edit from div where button is clicked and get the info
         let divTask = editBtn.parentNode.parentNode;
         let divDataTask = divTask.getAttribute("data-task");
         let taskToEditDescription = content.querySelector(`[data-description="${divDataTask}"]`).textContent;
@@ -130,6 +134,7 @@ const taskManager = (function () {
         let taskToEditDate = divTask.querySelector(".show-date").textContent;
         let taskToEditProject = divTask.querySelector(".show-project").textContent;
         let tasktoEditPriority = divTask.querySelector(".show-priority").querySelector(".priority-description").textContent;
+        //use the form with prefilled information
         createTaskForm();
         document.getElementById("task-title").value = taskToEditTitle;
         document.getElementById("task-date").value = taskToEditDate.split('/').reverse().join('-');;
@@ -146,7 +151,7 @@ const taskManager = (function () {
         selectionMenuPriority.value = tasktoEditPriority;
         document.getElementById("create-task-btn").textContent = "Edit Task";
         let createEditedTaskBtn = document.getElementById("create-task-btn");
-
+        //delete the old task and create the edited one
         createEditedTaskBtn.addEventListener("click", function () {
             let projects = storageManager.downloadProjects();
             for (let i = 0; i < projects.length; i++) {
@@ -176,6 +181,7 @@ const taskManager = (function () {
 })();
 //all about Projects
 const projectManager = (function () {
+    //contructor class for project
     class Project {
         constructor(projectName, date, priority) {
             this.projectName = projectName;
@@ -199,7 +205,7 @@ const projectManager = (function () {
         <button type="button" id="create-project-btn">Create Project</button>
     </form>`
     }
-
+    //function to create project
     let createProject = function () {
         let projectName = document.getElementById("project-name").value;
         let projectDate = document.getElementById("project-date").value;
@@ -215,6 +221,7 @@ const projectManager = (function () {
 
         createSideBar.showProjects();
     }
+    //function to delete the project
     let deleteProject = function (deleteBtn) {
         let divProject = deleteBtn.parentNode.parentNode;
         let projectToDeleteName = divProject.textContent;
@@ -231,6 +238,7 @@ const projectManager = (function () {
         createSideBar.showProjects();
 
     }
+    //function to edit project
     let editProject = function (editBtn) {
         let divProject = editBtn.parentNode.parentNode;
         let projectToEditName = divProject.textContent;
@@ -238,13 +246,14 @@ const projectManager = (function () {
         let selectedProject = projects.find(obj => obj.projectName == projectToEditName);
         let projectToEditDate = selectedProject.date;
         let projectToEditPriority = selectedProject.priority;
-
+        //same as task the form is precompiled with old information
         createProjectForm();
         document.getElementById("project-name").value = projectToEditName;
         document.getElementById("project-date").value = projectToEditDate;
         document.getElementById("project-priority").value = projectToEditPriority;
         document.getElementById("create-project-btn").textContent = "Edit Project";
         document.getElementById("create-project-btn").addEventListener("click", function () {
+            //differently from task modifies the actual value of the project in the array
             selectedProject.projectName = document.getElementById("project-name").value;
             selectedProject.date = document.getElementById("project-date").value;
             selectedProject.priority = document.getElementById("project-priority").value;

@@ -5,7 +5,7 @@ import homeIcon from "./img/home-icon.svg";
 import { storageManager } from "./localStorage";
 import deleteIcon from "./img/delete-icon.svg";
 import editIcon from "./img/edit-icon.svg";
-//Need projects to be imported to create the sideELement project in case 
+//creates an array of objects which are going to be desplayed on the sidebar
 let sideELements = [{
     title: "Home",
     imgSrc: homeIcon
@@ -32,11 +32,9 @@ let createSideBar = (function () {
         summaryHeader.className = "sb-header";
         summaryDiv.appendChild(summaryHeader);
         for (let i = 0; i < sideELements.length; i++) {
-            //creates sb Element div
             let sbElement = document.createElement("div");
             sbElement.className = "sb-element";
             sbElement.id = sideELements[i].title.toLowerCase() + "-btn";
-            //get the icon img
             let icon = document.createElement("img");
             icon.src = sideELements[i].imgSrc;
             let elementText = document.createElement("p");
@@ -47,6 +45,7 @@ let createSideBar = (function () {
             sideBar.appendChild(summaryDiv);
         }
     }
+    //functions the create and show the projects on the sidebar(not the default one)
     let showProjects = function () {
             let projects = storageManager.downloadProjects();
             if (projects.length > 1) {
@@ -79,6 +78,7 @@ let createSideBar = (function () {
                 }
             }
     }
+    //button to add a new project or a new task
     let showCreateBtn=function(){
         let createBtn = document.createElement("button");
         createBtn.id = "create-todo";

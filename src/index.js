@@ -7,17 +7,17 @@ import { format,parse} from "date-fns";
 let content=document.getElementById("content");
 let sideBar=document.getElementById("sidebar")
 
-
+//function that manage the process of the creating a task
 let addTask=function(){
+    //show the form
     taskManager.createTaskForm();
     let createTaskBtn=document.getElementById("create-task-btn");
     let taskForm=document.getElementById("task-form");
+    //check if the form is been compiled correctly
     createTaskBtn.addEventListener("click",function(event){
-        // let formattedFormDate=;
-        // let formattedTodayDate=;
-        //check validity of the form and date 
         if(!taskForm.checkValidity()){
             alert("All informations requested are needed");
+            //make sure the due date is not in the past
         }else if(parse(format(new Date(document.getElementById("task-date").value),'dd/MM/yyyy'),'dd/MM/yyyy', new Date())< parse(format(new Date(),'dd/MM/yyyy'),'dd/MM/yyyy',new Date())){
             alert("Your task can't have a date in the past");
             event.preventDefault();
@@ -27,7 +27,7 @@ let addTask=function(){
         
     });  
 }
-
+//function that manage the process of the creating a project
 let addProject=function(){
     projectManager.createProjectForm();
     let createProjectBtn=document.getElementById("create-project-btn");
@@ -51,7 +51,7 @@ createSideBar.showSummary();
 createSideBar.showProjects();
 createSideBar.showCreateBtn();
 displayController.homeTasks();
-
+//event listener to the button that allows us to create a task or a project
 let createTodo=document.getElementById("create-todo");
 createTodo.addEventListener("click",function(){
     content.innerHTML="";
@@ -67,16 +67,18 @@ createTodo.addEventListener("click",function(){
     newProjectBtn.addEventListener("click",addProject)
 
 });
-
+//event on the home sidebar element
 let homeBtn=document.getElementById("home-btn");
 homeBtn.addEventListener("click",function(){
     displayController.homeTasks();  
 });
+//event on the Today sidebar element
 let todayBtn=document.getElementById("today-btn");
 todayBtn.addEventListener("click",displayController.todayTasks);
-
+//event on the Week sidebar element
 let weekBtn=document.getElementById("this week-btn");
 weekBtn.addEventListener("click",displayController.weekTasks);
+//event on the Important sidebar element(high priority tasks)
 let importantBtn=document.getElementById("important-btn");
 importantBtn.addEventListener("click",displayController.importantTasks);
 
