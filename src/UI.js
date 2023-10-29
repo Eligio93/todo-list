@@ -196,8 +196,8 @@ let displayController=(function(){
                 //project Name taken from the sb project
                 let sbProjectName=sbProject.textContent;
                 let selectedProject=projects.find(element=>element.projectName==sbProjectName);
-                projectTaskPriority.textContent=selectedProject.priority;
-                projectTaskDate.textContent=format(new Date(selectedProject.date),'dd/MM/yyyy');
+                projectTaskPriority.textContent="Priority: "+selectedProject.priority;
+                projectTaskDate.textContent="Due Date: "+format(new Date(selectedProject.date),'dd/MM/yyyy');
                 let tasks=selectedProject.tasks;
                 if(tasks.length>0){
                     projectTaskTitle.textContent="Project "+sbProject.textContent+" tasks";
