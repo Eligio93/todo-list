@@ -3,6 +3,8 @@ import weekIcon from "./img/icon-week.svg";
 import importantIcon from "./img/icon-important.svg";
 import homeIcon from "./img/home-icon.svg";
 import { storageManager } from "./localStorage";
+import deleteIcon from "./img/delete-icon.svg";
+import editIcon from "./img/edit-icon.svg";
 //Need projects to be imported to create the sideELement project in case 
 let sideELements = [{
     title: "Home",
@@ -65,10 +67,10 @@ let createSideBar = (function () {
                     modifyBtns.className="modify-btns";
                     let deleteBtn=document.createElement("img");
                     deleteBtn.className="delete-btn";
-                    deleteBtn.src="/src/img/delete-icon.svg";
+                    deleteBtn.src=deleteIcon;
                     let editBtn=document.createElement("img");
                     editBtn.className="edit-btn";
-                    editBtn.src="/src/img/edit-icon.svg";
+                    editBtn.src=editIcon;
                     modifyBtns.appendChild(deleteBtn);
                     modifyBtns.appendChild(editBtn);
                     sbElement.appendChild(modifyBtns)
