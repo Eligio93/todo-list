@@ -3,11 +3,33 @@ import { format, isThisWeek } from 'date-fns';
 import deleteIcon from "./img/delete-icon.svg";
 import editIcon from "./img/edit-icon.svg";
 import arrowDownIcon from "./img/arrow-down-icon.svg"
+import mainIcon from "./img/main-icon.svg";
+import gitIcon from "./img/gitlogo.svg";
+
 let content = document.getElementById("content");
 
 
 let displayController = (function () {
     //render the tasks on content section
+    let displayHeader=function(){
+        let header=document.getElementById("header");
+        let mainImg=document.createElement("img");
+        mainImg.id="main-icon";
+        mainImg.src=mainIcon;
+        let headerTitle=document.createElement("h1");
+        headerTitle.textContent="Ec To Do List";
+        let gitLink=document.createElement("a");
+        gitLink.href="https://github.com/Eligio93/todo-list";
+        let gitLogo=document.createElement("img");
+        gitLogo.id="gitlogo";
+        gitLogo.src=gitIcon;
+        header.appendChild(mainImg);
+        header.appendChild(headerTitle);
+        gitLink.appendChild(gitLogo);
+        header.appendChild(gitLink);
+
+
+    }
     let renderTasks = function (array) {
         array.forEach((task, index) => {
             let taskDiv = document.createElement("div");
@@ -226,7 +248,8 @@ let displayController = (function () {
         todayTasks,
         weekTasks,
         importantTasks,
-        projectsTasks
+        projectsTasks,
+        displayHeader
     }
 }
 )();

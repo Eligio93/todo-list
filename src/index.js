@@ -47,6 +47,7 @@ let addProject=function(){
 }
 
 //initialize page
+displayController.displayHeader();
 createSideBar.showSummary();
 createSideBar.showProjects();
 createSideBar.showCreateBtn();
